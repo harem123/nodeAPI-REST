@@ -1,55 +1,49 @@
-const getAllWorkouts = (req,res) => {
+
+
+
+const v1Service = require('../services/services.js')
+
+const getAllinfo = (req,res) => {
     // servicios previos a la respuesta
-    const allWorkouts = workoutService.getAllworkouts()
+    const allData = v1Service.getAllData()
     // envio la respuesta
-    res.send({status:"OK", data:allWorkouts});
+    res.send({status:"OK", data:allData});
 }
 
-const getOneWorkout = (req,res) => {
-    const workout = workoutService.getOneWorkout();
-    res.send("Get an existing workout");
+const getInfoByUser = (req,res) => {
+    const infoByUser = v1Service.getOneUser();
+    res.send(infoByUser);
 }
 
-const createNewWorkout = (req, res) => {
-    const {body} = req
-    if ( 
-      !body.name ||
-      !body.mode ||
-      !body.equipment ||
-      !body.exercises ||
-      !body.trainerTips
-    ){
-      return
-    }
-   // inicializo la info
-   const newWorkout = {
-    name: body.name,
-    mode: body.mode,
-    equipment: body.equipment,
-    exercises: body.exercises,
-    trainerTips: body.trainerTips
-   }
-    
-    const createdWorkout = workoutService.createNewWorkout(newWorkout);
-    res.status(201).send({status:"OK", data: createdWorkout} );
-  };
-  
-  const updateOneWorkout = (req, res) => {
-    const updatedWorkout = workoutService.updateOneWorkout();
-    res.send("Update an existing workout");
-  };
-  
-  const deleteOneWorkout = (req, res) => {
-    // solo llamo el servicio porq no devuelve nada
-    workoutService.deleteOneWorkout();
-    res.send("Delete an existing workout");
-  };
 
+const createUser = async (req, res) => {
+  const {body} = req
+  if ( 
+    !body.name ||
+    !body.email 
+  ){
+    return
+  }
+ // inicializo la info
+ const newUser = {
+  name: body.name,
+  password: body.password,
+  email: body.email
+ }
+  //TODO buscar como funciona un post service sequelize
+  //onst createdUser = usersModel.create(newUser);
+  try {
+    createdUser = await v1Service.postUser(newUser)
+    res.status(201).send({status:"OK", userId: createdUser} );
+  } catch (error) {
+    res.status(500).send({status:"FAILED"});
+  } 
+};
 
   module.exports = {
-    getAllWorkouts,
-    getOneWorkout,
-    createNewWorkout,
-    updateOneWorkout,
-    deleteOneWorkout
+    getAllinfo,
+    getInfoByUser,
+    createUser
   }
+
+  
