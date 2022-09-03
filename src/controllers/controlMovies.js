@@ -1,4 +1,4 @@
-const v1ServiceMovie = require('../services/MovieServices.js')
+const v1ServiceMovie = require('../services/movieServices.js')
 
 const getMovies= (req,res) => {
     // servicios previos a la respuesta
@@ -23,7 +23,7 @@ const createMovie = async (req, res) => {
   }
  // inicializo la info
  const newMovie= {
-  name: body.title,
+  title: body.title,
   img_link: body.img_link,
   created_date: body.created_date,
   score: body.score
@@ -31,9 +31,10 @@ const createMovie = async (req, res) => {
   //TODO buscar como funciona un post service sequelize
   //onst createdUser = usersModel.create(newUser);
   try {
-    createdMovie= await v1Service.postMovie(newMovie)
+    createdMovie= await v1ServiceMovie.postMovie(newMovie)
     res.status(201).send({status:"OK", userId: createdMovie} );
   } catch (error) {
+    console.log(error)
     res.status(500).send({status:"FAILED"});
   } 
 };

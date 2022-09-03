@@ -1,11 +1,11 @@
 const db = require("../../models/index.js");
-const movieModel = db.movie;
-//const genreModel = db.genre;
+//const movieModel = db.movie;
+const genreModel = db.genre;
 // show all data 
-const getAllMovies= () => {
-  const data = movieModel.findAll({attributes:['title','score']})
-  .then(movies => {
-      const resultados = JSON.stringify(movies)
+const getAllGenres= () => {
+  const data = genreModel.findAll({attributes:['title','score']})
+  .then(genres => {
+      const resultados = JSON.stringify(genres)
       console.log(resultados)
   })
   .catch(error => {
@@ -14,15 +14,15 @@ const getAllMovies= () => {
   return data
 }
 // TODO show one user by id but really
-const getOneMovie = () => {
-    const movieInfo = "movie info by id"
+const getOneGenre = () => {
+    const genreInfo = "genre info by id"
   
-    return movieInfo
+    return genreInfo
 }
 // create users try catch doesnt work propertly
-const  postMovie = async (userBody) => {
+const  postGenre = async (userBody) => {
   try{
-    const createResult = await movieModel.create(userBody)
+    const createResult = await genreModel.create(userBody)
   
     console.log(createResult.id)
     return (createResult.id)
@@ -35,9 +35,9 @@ const  postMovie = async (userBody) => {
 
 /////// exports
   module.exports = {
-    getAllMovies,
-    getOneMovie,
-    postMovie,
+    getAllGenres,
+    getOneGenre,
+    postGenre,
     ///// genre services exportations
    
   

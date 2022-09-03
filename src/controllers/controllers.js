@@ -19,14 +19,14 @@ const getInfoByUser = (req,res) => {
 const createUser = async (req, res) => {
   const {body} = req
   if ( 
-    !body.name ||
+    !body.user_name ||
     !body.email 
   ){
     return
   }
  // inicializo la info
  const newUser = {
-  name: body.name,
+  user_name: body.user_name,
   password: body.password,
   email: body.email
  }
