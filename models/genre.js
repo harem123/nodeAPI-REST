@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   genre.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     img_link: DataTypes.STRING
   }, {
     sequelize,
