@@ -4,6 +4,8 @@ const v1Router = require('./src/routes/routerIndex.js')
 
 const app = express();
 
+global.__basedir = __dirname;
+
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: true }));
 
