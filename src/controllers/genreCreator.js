@@ -3,7 +3,7 @@ const v1ServiceGenre = require('../services/genresServices.js')
 const uploadFile = require("../services/uploadService.js");
 const fs = require("fs");
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
-const baseUrl = "http://localhost:3000/files/";
+const baseUrl = "http://localhost:3000/images/";
 
 const createGenre = async (req, res) => {
 

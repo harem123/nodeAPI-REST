@@ -1,7 +1,7 @@
 const uploadFile = require("../services/uploadService.js");
 const fs = require("fs");
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
-const baseUrl = "http://localhost:3000/files/";
+const baseUrl = "http://localhost:3000/";
 
 const upload = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ const upload = async (req, res) => {
 };
 
 const getListFiles = (req, res) => {
-  const directoryPath = __basedir + "/resources/static/assets/uploads/";
+  const directoryPath = __basedir + "/images";
 
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
