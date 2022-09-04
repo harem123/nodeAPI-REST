@@ -9,6 +9,8 @@ global.__basedir = __dirname;
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static(__dirname + 'public'));
+app.use('/images', express.static(__dirname + '/images'));
 app.use("/", v1Router)
 
 

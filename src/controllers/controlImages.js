@@ -7,11 +7,11 @@ const upload = async (req, res) => {
   try {
     
     await uploadFile(req, res);
-    
+    console.log(req.file.originalname);
     if (req.file == undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
-    const info = req.body.movie
+    const info = req.body.name
     
     res.status(200).send({
       message: "Uploaded the file successfully: " + info,

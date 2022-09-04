@@ -25,7 +25,7 @@ const  postGenre = async (userBody) => {
     const createResult = await genreModel.create(userBody)
   
     console.log(createResult.id)
-    return (createResult.id)
+    return (createResult.img_link)
   }
   catch(error){
     console.log(error)
