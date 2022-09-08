@@ -1,4 +1,5 @@
 const uploadFile = require("../services/uploadService.js");
+const v1ServiceMovie = require('../services/movieServices.js')
 const fs = require("fs");
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
 const baseUrl = "http://localhost:3000/";
@@ -11,10 +12,29 @@ const upload = async (req, res) => {
     if (req.file == undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
-    const info = req.body.name
+    const arras = req.body.movieArr
+    const dataj = JSON.parse(arras); 
+    for (i = 0; i < dataj.length; i++) {
+      console.log(dataj[i]);
+    } 
+    const title = req.body.title
+    const score = req.body.score
+    const link = baseUrl + req.file.originalname
+    //// metiendo mano 
+    const newMovie= {
+      title: title,
+      img_link: link,
+      score: score
+     }
+
+     createdMovie = await v1ServiceMovie.postMovie(newMovie)
+    /// insertcion edn
     
+    console.log(title)
+    console.log(score)
+
     res.status(200).send({
-      message: "Uploaded the file successfully: " + info,
+      message: "Uploaded the file successfully: " + arras,
     });
   } catch (err) {
     console.log(err);
