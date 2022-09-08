@@ -1,5 +1,7 @@
 const uploadFile = require("../services/uploadService.js");
 const v1ServiceMovie = require('../services/movieServices.js')
+const db = require("../../models/index.js");
+const genreAssociateModel = db.genre_movie;
 const fs = require("fs");
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
 const baseUrl = "http://localhost:3000/";
@@ -29,7 +31,20 @@ const upload = async (req, res) => {
 
      createdMovie = await v1ServiceMovie.postMovie(newMovie)
     /// insertcion edn
+    /// creando asociaciones
     
+ 
+    //console.log(arrs)
+    for (i = 0; i < dataj.length; i++) {
+       const arras= {
+           movieId: 34,
+           genreId: dataj[i]
+          }
+   
+          genreAssociateModel.create(arras);
+     } 
+   
+    // fin asociaones
     console.log(title)
     console.log(score)
 
