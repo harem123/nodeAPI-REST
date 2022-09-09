@@ -32,8 +32,18 @@ const upload = async (req, res) => {
      createdMovie = await v1ServiceMovie.postMovie(newMovie)
     /// insertcion edn
     /// creando asociaciones
-    
- 
+    /// para crear el bulk debo inseertar la fecha 
+  /*  const arra = [1,2,3]
+const id = 9
+const bulki =  []	
+//console.log(arra.length)
+for (i=0; i< dataj.length;i++	){
+	//console.log(arra[i])
+const preArray = {movieId: id, genreId: dataj[i]}	
+bulki.push(preArray)
+    console.log(preArray)}
+ genreAssociateModel.bulkCreate([bulki])
+ */
     //console.log(arrs)
     for (i = 0; i < dataj.length; i++) {
        const arras= {
