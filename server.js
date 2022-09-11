@@ -6,6 +6,8 @@ const app = express();
 
 global.__basedir = __dirname;
 
+//dotenv.config();
+
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: true }));
 

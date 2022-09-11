@@ -5,6 +5,7 @@ const v1ControlMovies = require('../controllers/controlMovies.js')
 const v1ControlGenre = require('../controllers/controlGenres.js')
 const v1ControlImages = require('../controllers/controlImages')
 const v1genreCreator = require('../controllers/genreCreator')
+const v1RegistControl = require('../controllers/userControl')
 
 router.get("/", v1Controller.getAllinfo)
 
@@ -13,7 +14,11 @@ router.get("/", v1Controller.getAllinfo)
  //router.get("/files:name",v1ControlImages.download);
  router.get("/files/:name", v1ControlImages.download);
 
-router.post("/createUser", v1Controller.createUser);
+router.post("/register", v1RegistControl.registerUser);
+
+router.post("/protected", v1RegistControl.ensureToken,v1RegistControl.protectedSection);
+
+router.post("/login", v1RegistControl.login);
 
 router.post("/createMovie", v1ControlMovies.createMovie);
 

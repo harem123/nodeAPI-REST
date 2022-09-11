@@ -1,6 +1,3 @@
-
-
-
 const v1Service = require('../services/services.js')
 
 const getAllinfo = (req,res) => {
