@@ -13,13 +13,8 @@ const getAllGenres= () => {
   })
   return data
 }
-// TODO show one user by id but really
-const getOneGenre = () => {
-    const genreInfo = "genre info by id"
-  
-    return genreInfo
-}
-// create users try catch doesnt work propertly
+
+// TODO create users try catch doesnt work propertly
 const  postGenre = async (userBody) => {
   try{
     const createResult = await genreModel.create(userBody)
@@ -36,7 +31,6 @@ const  postGenre = async (userBody) => {
 /////// exports
   module.exports = {
     getAllGenres,
-    getOneGenre,
     postGenre,
     ///// genre services exportations
    
