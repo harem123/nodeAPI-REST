@@ -14,11 +14,11 @@ router.get("/", v1Controller.getAllinfo)
  //router.get("/files:name",v1ControlImages.download);
  router.get("/files/:name", v1ControlImages.download);
 
-router.post("/register", v1RegistControl.registerUser);
+router.post("/auth/register", v1RegistControl.registerUser);
 
 router.post("/protected", v1RegistControl.ensureToken,v1RegistControl.protectedSection);
 
-router.post("/login", v1RegistControl.login);
+router.post("//auth/login", v1RegistControl.login);
 
 router.post("/createMovie", v1ControlMovies.createMovie);
 
