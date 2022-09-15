@@ -1,3 +1,4 @@
+//TODO implement search by title filtering by gender to get ASC or DESC order movies 
 const db = require("../../models/index.js");
 const movieModel = db.movie;
 //const genreModel = db.genre;
