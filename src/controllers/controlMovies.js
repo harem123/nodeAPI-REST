@@ -11,6 +11,7 @@ const genreAssociateModel = db.genre_movie;
 const getMovies= (req,res) => {
     // servicios previos a la respuesta
     const allData = v1ServiceMovie.getAllMovies()
+    console.log("data " + allData)
     // envio la respuesta
     res.send({status:"OK", data:allData});
 }
@@ -36,8 +37,7 @@ const createMovie = async (req, res) => {
  const newMovie= {
   title: body.title,
   img_link: link,
-  // TODO ver como funciona la fecha en postgres como es la sintaxis
-  created_date: body.created_date,
+    created_date: body.created_date,// yyyy-mm-dd
   score: body.score
  }  
   try {

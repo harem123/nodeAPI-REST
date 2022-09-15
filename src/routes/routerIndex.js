@@ -14,7 +14,7 @@ router.get("/", v1Controller.getAllinfo)
  //router.get("/files:name",v1ControlImages.download);
 
 
-
+ router.get("/movies" , v1ControlMovies.getMovies);
 
 router.post("/createMovie", v1ControlMovies.createMovie);
 
