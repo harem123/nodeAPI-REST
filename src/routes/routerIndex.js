@@ -12,15 +12,9 @@ router.get("/", v1Controller.getAllinfo)
 //router.get("/:getId",v1Controller.getInfoByUser);
 
  //router.get("/files:name",v1ControlImages.download);
- router.get("/files/:name", v1ControlImages.download);
 
- router.get("/email" , v1ControlEmail.sendEmail);
 
-router.post("/auth/register", v1RegistControl.registerUser);
 
-router.post("/protected", v1RegistControl.ensureToken,v1RegistControl.protectedSection);
-
-router.post("//auth/login", v1RegistControl.login);
 
 router.post("/createMovie", v1ControlMovies.createMovie);
 
@@ -29,6 +23,16 @@ router.post("/createMovie", v1ControlMovies.createMovie);
 router.post("/upload", v1ControlImages.upload);
 
 router.post("/createGenre", v1genreCreator.createGenre);
+
+router.get("/files/:name", v1ControlImages.download);
+
+router.get("/email" , v1ControlEmail.sendEmail);
+
+router.post("/auth/register", v1RegistControl.registerUser);
+
+router.post("/protected", v1RegistControl.ensureToken,v1RegistControl.protectedSection);
+
+router.post("//auth/login", v1RegistControl.login);
 
 //router.patch("/:patchId", v1Controller.updateOneWorkout);
 

@@ -27,7 +27,7 @@ const createGenre = async (req, res) => {
   img_link: body.img_link
   
  }
-  //TODO buscar como funciona un post service sequelize
+  
   //onst createdUser = usersModel.create(newUser);
   try {
     createdGenre= await v1ServiceGenre.postGenre(newGenre)

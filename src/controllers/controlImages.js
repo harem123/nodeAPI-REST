@@ -16,9 +16,11 @@ const upload = async (req, res) => {
     }
     const arras = req.body.movieArr
     const dataj = JSON.parse(arras); 
+    /*
     for (i = 0; i < dataj.length; i++) {
       console.log(dataj[i]);
     } 
+    */
     const title = req.body.title
     const score = req.body.score
     const link = baseUrl + req.file.originalname
@@ -32,7 +34,7 @@ const upload = async (req, res) => {
      createdMovie = await v1ServiceMovie.postMovie(newMovie)
     /// insertcion edn
     /// creando asociaciones
-    /// para crear el bulk debo inseertar la fecha 
+    /// para crear el bulk debo inseertar la fecha de creacioon y actulizacion 
   /*  const arra = [1,2,3]
 const id = 9
 const bulki =  []	

@@ -12,7 +12,6 @@ const link = baseUrl + req.file.originalname
   const {body} = req
   if ( 
     !body.name 
-    
   ){
     return
   }
@@ -20,9 +19,7 @@ const link = baseUrl + req.file.originalname
  const newGenre= {
   name: body.name,
   img_link: link
-  
  }
-  //TODO buscar como funciona un post service sequelize
   //onst createdUser = usersModel.create(newUser);
   try {
     createdGenre= await v1ServiceGenre.postGenre(newGenre)
@@ -34,6 +31,5 @@ const link = baseUrl + req.file.originalname
 };
 
   module.exports = {
-    
     createGenre
   }

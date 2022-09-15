@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
   password: body.password,
   email: body.email
  }
-  //TODO buscar como funciona un post service sequelize
+  
   //onst createdUser = usersModel.create(newUser);
   try {
     createdUser = await v1Service.postUser(newUser)
