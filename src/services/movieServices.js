@@ -17,11 +17,31 @@ const getAllMovies= async() => {
 }
 
 // TODO show one user by id but really
-const getOneMovie = () => {
-    const movieInfo = "movie info by id"
-  
+const getOneMovie = async (id) => {
+    
+  const movieInfo = await movieModel.findOne({ where: { id: id} });
+    if (movieInfo === null) {
+      console.log('Not found!');
+    } else {
+      
+      console.log(movieInfo); // 'My Title'
+    }
     return movieInfo
 }
+const getMovieByName = async (id) => {
+    
+  const movieInfo = await movieModel.findOne({ where: { title: id} });
+    if (movieInfo === null) {
+      console.log('Not found!');
+    } else {
+      
+      console.log(movieInfo); // 'My Title'
+    }
+    return movieInfo
+}
+
+
+
 // create users try catch doesnt work propertly
 const  postMovie = async (userBody) => {
   try{
@@ -41,6 +61,7 @@ const  postMovie = async (userBody) => {
     getAllMovies,
     getOneMovie,
     postMovie,
+    getMovieByName
     ///// genre services exportations
    
   

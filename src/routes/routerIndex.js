@@ -26,6 +26,10 @@ router.post("/createGenre", v1genreCreator.createGenre);
 
 router.get("/files/:name", v1ControlImages.download);
 
+router.get("/movies/:id", v1ControlMovies.getById);
+
+router.get("/mov/:name", v1ControlMovies.getByname);
+
 router.get("/email" , v1ControlEmail.sendEmail);
 
 router.post("/auth/register", v1RegistControl.registerUser);
