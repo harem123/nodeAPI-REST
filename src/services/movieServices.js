@@ -3,19 +3,19 @@ const db = require("../../models/index.js");
 const movieModel = db.movie;
 //const genreModel = db.genre;
 // show all data 
-const getAllMovies= async () => {
-  const data = await movieModel.findAll({attributes:['title','score','img_link']})
-  .then(movies => {
+const getAllMovies= async() => {
+  try{
+    const data = await  movieModel.findAll({attributes:['title','score','img_link']})
       //console.log(movies)
-      const result = JSON.stringify(movies)
-      console.log(result)
-      return result
-  })
-  .catch(error => {
-      console.log(error)
-  })
- 
+      //const result = JSON.stringify(data)
+      //console.log(result)
+      return data
+  }
+  catch(err){
+    console.log(err)
+  }  
 }
+
 // TODO show one user by id but really
 const getOneMovie = () => {
     const movieInfo = "movie info by id"

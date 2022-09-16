@@ -1,6 +1,7 @@
 // requerido para subir las fotos 
 const uploadFile = require("../services/uploadService.js");
 const fs = require("fs");
+
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
 const baseUrl = "http://localhost:3000/images/";
 // importo el modelo
@@ -8,12 +9,17 @@ const v1ServiceMovie = require('../services/movieServices.js')
 const db = require("../../models/index.js");
 const genreAssociateModel = db.genre_movie;
 
-const getMovies= (req,res) => {
-    // servicios previos a la respuesta
-    const allData = v1ServiceMovie.getAllMovies()
-    console.log("data " + allData)
-    // envio la respuesta
+
+const getMovies= async (req,res) => {
+  try{
+    const allData = await v1ServiceMovie.getAllMovies()
     res.send({status:"OK", data:allData});
+  }
+  catch (error) {
+    console.log(error)
+    res.status(500).send({status:"FAILED"});
+  } 
+    
 }
 
 const getInfoByMovie = (req,res) => {
