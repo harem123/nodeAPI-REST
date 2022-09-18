@@ -45,7 +45,8 @@ const getById= async (req,res) => {
 
 const createMovie = async (req, res) => {
   await uploadFile(req,res)
-  const link = baseUrl + req.file.originalname
+  const link = baseUrl  + req.file.originalname
+  // TODO change movie ARR to genre arr
   const arras = req.body.movieArr
     const dataj = JSON.parse(arras); 
 
