@@ -1,4 +1,4 @@
-
+const url = require('url');
 const express = require("express");
 const bodyParser = require('body-parser')
 const v1Router = require('./src/routes/routerIndex.js')
@@ -11,6 +11,7 @@ global.__basedir = __dirname;
 
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: true }));
+
 
 app.use(express.static(__dirname + 'public'));
 app.use('/images', express.static(__dirname + '/images'));

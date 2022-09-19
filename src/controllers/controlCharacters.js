@@ -11,12 +11,49 @@ const characterAssociateModel = db.character_movie;
 
 
 
+const searchBy= async (req,res) => {
+  try{
+    let age = null
+    let name = null
+    let idMovie = null
+    let allData= null
+
+    //TODO change if else by switch case
+    if(req.query.age){
+       
+      const byAge = {
+        age: req.query.age
+      }
+      allData = await v1ServiceCharacter.getByFilter(byAge)
+    }
+    else if (req.query.name){
+      const byName = {
+        name: req.query.name
+      }
+      allData = await v1ServiceCharacter.getByFilter(byName)
+    }
+    else {
+     
+      const byMovie = { movieId: req.query.movieId }
+      
+      allData = await v1ServiceCharacter.getByMovieId(byMovie)
+
+    }
+    res.status(200).send({data:allData});
+  }
+  catch (error) {
+    console.log(error)
+    res.status(500).send({status:"FAILED"});
+  } 
+    
+}
+
 
 const createCharacter = async (req, res) => {
   await uploadFile(req,res)
   const link = baseUrl + req.file.originalname
   const arras = req.body.movieArr
-    const dataj = JSON.parse(arras); 
+  const dataj = JSON.parse(arras); 
 
   const {body} = req
   if ( 
@@ -41,7 +78,6 @@ const createCharacter = async (req, res) => {
           characterId: createdId,
           movieId: dataj[i]
          }
-  
          characterAssociateModel.create(arras);
     } 
   } catch (error) {
@@ -51,7 +87,7 @@ const createCharacter = async (req, res) => {
 };
 
   module.exports = {
-    
-    createCharacter
+    createCharacter,
+    searchBy
     
   }

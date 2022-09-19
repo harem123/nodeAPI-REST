@@ -16,36 +16,38 @@ const getAllMovies= async() => {
   }  
 }
 
+
+
 // TODO show one user by id but really
-const getOneMovie = async (id) => {
+const getById = async (id,model=movieModel) => {
     
-  const movieInfo = await movieModel.findOne({ where: { id: id} });
-    if (movieInfo === null) {
+  const byIdInfo = await model.findOne({ where: { id: id} });
+    if (byIdInfo === null) {
       console.log('Not found!');
     } else {
       
-      console.log(movieInfo); // 'My Title'
+      console.log(byIdInfo); // 'My Title'
     }
-    return movieInfo
+    return byIdInfo
 }
-const getMovieByName = async (id) => {
+const getByName = async (id,model=movieModel) => {
     
-  const movieInfo = await movieModel.findOne({ where: { title: id} });
-    if (movieInfo === null) {
+  const nameInfo = await model.findOne({ where: { title: id} });
+    if (nameInfo === null) {
       console.log('Not found!');
     } else {
       
-      console.log(movieInfo); // 'My Title'
+      //console.log(nameInfo); // 'My Title'
     }
-    return movieInfo
+    return nameInfo
 }
 
 
 
 // create users try catch doesnt work propertly
-const  postMovie = async (userBody) => {
+const  postMovie = async (userBody,model=movieModel) => {
   try{
-    const createResult = await movieModel.create(userBody)
+    const createResult = await model.create(userBody)
   
     console.log(createResult.id)
     return (createResult.id)
@@ -59,10 +61,8 @@ const  postMovie = async (userBody) => {
 /////// exports
   module.exports = {
     getAllMovies,
-    getOneMovie,
+    getById,
     postMovie,
-    getMovieByName
-    ///// genre services exportations
-   
-  
+    getByName,
+    
   }

@@ -22,12 +22,16 @@ const getMovies= async (req,res) => {
     
 }
 
+
+
+
 const getByname= async (req,res) => {
 
   try{
-    const name =req.params.name
-    const allData = await v1ServiceMovie.getMovieByName(name)
-    res.send({status:"OK", data:allData});
+    const name = req.query.name;
+        //const name =req.params.name
+    const allData = await v1ServiceMovie.getByName(name)
+    res.status(200).send({data:allData});
   }
   catch (error) {
     console.log(error)
@@ -86,5 +90,6 @@ const createMovie = async (req, res) => {
     getMovies,
     getById,
     createMovie,
-    getByname
+    getByname,
+   
   }

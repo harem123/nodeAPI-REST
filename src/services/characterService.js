@@ -1,15 +1,62 @@
 //TODO implement search by title filtering by gender to get ASC or DESC order movies 
 const db = require("../../models/index.js");
 const characterModel = db.character;
+const associatedMovie= db.character_movie
 
 // show all data 
-const getAllMovies= async() => {
+const getAll= async() => {
   try{
-    const data = await  movieModel.findAll({attributes:['title','score','img_link']})
+    const data = await  characterModel.findAll({attributes:['name','img_link']})
       //console.log(movies)
       //const result = JSON.stringify(data)
     
       return data
+  }
+  catch(err){
+    console.log(err)
+  }  
+}
+
+const getByFilter= async(filter,model=characterModel) => {
+  try{
+    //TODO pasar desde controlador todo el filtro 
+    //console.log(filter)
+    const data = await  model.findAll({
+      where: filter
+    });
+      return data
+  }
+  catch(err){
+    console.log(err)
+  }  
+}
+//TODO build character query by id movie
+const getByMovieId= async(filter) => {
+  try{
+    //TODO pasar desde controlador todo el filtro 
+    //console.log(filter)
+
+    const data = await  associatedMovie.findAll({
+      where: filter,
+      attributes: ['characterId'],
+      raw: true,
+      nest: true
+    });
+    //TODO retunr find all id [1,2,3] is property of find all 
+    //const datajson = JSON.parse(data); 
+    let bulkId = []
+    for (i=0; i < data.length; i++){
+      //console.log(data[i].characterId)
+      bulkId.push(data[i].characterId)
+    }
+    console.log(bulkId)
+    const characterData = await characterModel.findAll({
+      where: {
+        id: bulkId // Same as using `id: { [Op.in]: [1,2,3] }`
+      }
+    });
+    
+    return characterData
   }
   catch(err){
     console.log(err)
@@ -28,17 +75,7 @@ const getOneMovie = async (id) => {
     }
     return movieInfo
 }
-const getMovieByName = async (id) => {
-    
-  const movieInfo = await movieModel.findOne({ where: { title: id} });
-    if (movieInfo === null) {
-      console.log('Not found!');
-    } else {
-      
-      console.log(movieInfo); // 'My Title'
-    }
-    return movieInfo
-}
+
 
 
 
@@ -59,8 +96,8 @@ const  postCharacter = async (userBody) => {
 /////// exports
   module.exports = {
     
-    postCharacter
-   
-   
-  
+    postCharacter,
+    getAll ,
+    getByFilter,
+    getByMovieId
   }

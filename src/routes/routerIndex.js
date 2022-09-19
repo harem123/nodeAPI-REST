@@ -11,16 +11,19 @@ const v1ControlEmail = require('../controllers/nodemailer.js')
 
  router.get("/movies" , v1ControlMovies.getMovies);
 
+ 
+
 router.post("/createMovie", v1ControlMovies.createMovie);
 
 router.get("/movies/:id", v1ControlMovies.getById);
 
-router.get("/mov/:name", v1ControlMovies.getByname);
+router.get("/mov", v1ControlMovies.getByname);
 
 // characters endpoints
 
 router.post("/createCharacter", v1ControlCharacters.createCharacter);
 
+router.get("/character", v1ControlCharacters.searchBy);
 // other endpoints
 
 router.post("/upload", v1ControlImages.upload);
