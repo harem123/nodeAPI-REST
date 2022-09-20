@@ -1,3 +1,4 @@
+const v1ControlEmail = require('../controllers/nodemailer.js')
 const db = require("../../models/index.js");
 const userModel = db.user;
 
@@ -5,8 +6,6 @@ const userModel = db.user;
 const express = require('express')
 const app = express()
 const port = 3000
-
-
 
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
@@ -20,6 +19,14 @@ const registerUser = async (req, res) => {
         password : await bcrypt.hash(req.body.password, salt)
       };
       created_user = await userModel.create(usr);
+      const mailInfo = {
+        from: 'atomsasfreelance@gmail.com',
+        to: usr.email,
+        subject: 'welcome to goalab',
+        text: 'you are registered to goalab' 
+    };
+    
+        v1ControlEmail.sendEmail(mailInfo)
       res.status(201).json({insertionId: created_user.id});
 }
 

@@ -19,16 +19,16 @@ let transporter = nodemailer.createTransport({
 
 
 
-const mailOptions = {
+const mailOptionshardCoded = {
   from: 'atomsasfreelance@gmail.com',
   to: 'cp1085275@gmail.com',
-  subject: 'correo de prueba',
-  text: 'hola bebita piruletica'
+  subject: 'welcome to goalab',
+  text: 'you are registered to goalab'
 };
 
 
 
-const sendEmail = () => {
+const sendEmail = (mailOptions) => {
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
