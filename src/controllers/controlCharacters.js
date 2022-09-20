@@ -17,28 +17,28 @@ const searchBy= async (req,res) => {
     let name = null
     let idMovie = null
     let allData= null
-
-    //TODO change if else by switch case
-    if(req.query.age){
-       
-      const byAge = {
-        age: req.query.age
-      }
-      allData = await v1ServiceCharacter.getByFilter(byAge)
+    let firstKey=Object.keys(req.query)[0];
+    switch (firstKey) {
+      case 'name':
+        const byName = {
+          name: req.query.name
+        }
+        allData = await v1ServiceCharacter.getByFilter(byName)
+        break
+      case 'age':
+        const byAge = {
+          age: req.query.age
+        }
+        allData = await v1ServiceCharacter.getByFilter(byAge)
+        break
+      case 'movieId':
+        const byMovie = { movieId: req.query.movieId }
+        allData = await v1ServiceCharacter.getByMovieId(byMovie)
+        break
+      default: console.log("def")
+        
     }
-    else if (req.query.name){
-      const byName = {
-        name: req.query.name
-      }
-      allData = await v1ServiceCharacter.getByFilter(byName)
-    }
-    else {
-     
-      const byMovie = { movieId: req.query.movieId }
-      
-      allData = await v1ServiceCharacter.getByMovieId(byMovie)
-
-    }
+    
     res.status(200).send({data:allData});
   }
   catch (error) {
