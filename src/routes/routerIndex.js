@@ -23,7 +23,12 @@ router.get("/mov", v1ControlMovies.getByname);
 
 router.post("/createCharacter", v1ControlCharacters.createCharacter);
 
+router.post("/updateCharacter", v1ControlCharacters.updateCharacter);
+
 router.get("/character", v1ControlCharacters.searchBy);
+
+router.get("/character/delete", v1ControlCharacters.deleteCharacterByName);
+
 // other endpoints
 
 router.post("/upload", v1ControlImages.upload);

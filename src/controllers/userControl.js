@@ -10,7 +10,7 @@ const port = 3000
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 //const dotenv = require('dotenv');
-
+// TODO add try catch
 const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     var usr = {
@@ -38,11 +38,11 @@ const login = async(req,res)=>{
          token = jwt.sign({ "id" : user.id,"email" : user.email },'my_secret_token');
          res.status(200).json({ token : token});
      } else {
-       res.status(400).json({ error : "Password Incorrect" });
+       res.status(400).json({ error : "Password or user Incorrect" });
      }
    
    }else{
-     res.status(404).json({ error : "User does not exist" });
+     res.status(400).json({ error :  "Password or user Incorrect"});
    }
    
    };

@@ -19,9 +19,10 @@ const getAll= async() => {
 
 const getByFilter= async(filter,model=characterModel) => {
   try{
-    //TODO pasar desde controlador todo el filtro 
+    //TODO query should return only name and image
     //console.log(filter)
     const data = await  model.findAll({
+      attributes:['name','img_link'],
       where: filter
     });
       return data

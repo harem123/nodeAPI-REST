@@ -18,7 +18,7 @@ const getAllMovies= async() => {
 
 
 
-// TODO show one user by id but really
+
 const getById = async (id,model=movieModel) => {
     
   const byIdInfo = await model.findOne({ where: { id: id} });

@@ -1,5 +1,6 @@
 const v1Service = require('../services/services.js')
-
+// TODO review and eliminate all unused functions
+// TODO build general functions like destroy and update for all controllers
 const getAllinfo = (req,res) => {
     // servicios previos a la respuesta
     const allData = v1Service.getAllData()
@@ -12,35 +13,12 @@ const getInfoByUser = (req,res) => {
     res.send(infoByUser);
 }
 
+// TODO review if it's required firs find the row to eliminate
 
-const createUser = async (req, res) => {
-  const {body} = req
-  if ( 
-    !body.user_name ||
-    !body.email 
-  ){
-    return
-  }
- // inicializo la info
- const newUser = {
-  user_name: body.user_name,
-  password: body.password,
-  email: body.email
- }
-  
-  //onst createdUser = usersModel.create(newUser);
-  try {
-    createdUser = await v1Service.postUser(newUser)
-    res.status(201).send({status:"OK", userId: createdUser} );
-  } catch (error) {
-    res.status(500).send({status:"FAILED"});
-  } 
-};
+
 
   module.exports = {
-    getAllinfo,
-    getInfoByUser,
-    createUser
+    destroyer
   }
 
   

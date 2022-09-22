@@ -6,16 +6,17 @@ const url = require('url');
 const baseUrl = "http://localhost:3000/images/";
 // importo el modelo
 const v1ServiceCharacter = require('../services/characterService.js')
+const v1Services = require('../services/services.js')
 const db = require("../../models/index.js");
 const characterAssociateModel = db.character_movie;
+const characterModel = db.character
 
 
+//TODO implement foreign keys and cascade delete and update 
 
 const searchBy= async (req,res) => {
   try{
-    let age = null
-    let name = null
-    let idMovie = null
+    
     let allData= null
     let firstKey=Object.keys(req.query)[0];
     switch (firstKey) {
@@ -38,7 +39,7 @@ const searchBy= async (req,res) => {
       default: console.log("def")
         
     }
-    
+    //TODO review if it is better send raw data 
     res.status(200).send({data:allData});
   }
   catch (error) {
@@ -66,6 +67,7 @@ const createCharacter = async (req, res) => {
   name: body.name,
   img_link: link,
   age: body.age,
+  history: body.history,
   weight: body.weight // decimal
  }  
   try {
@@ -73,6 +75,7 @@ const createCharacter = async (req, res) => {
     res.status(201).send({status:"OK", CreatedId: createdId} );
     // inserto con el id en la tabla movie-genre 
     // TODO agregar un propio try catch para genre movie insertion  
+    // TODO make insertion from service and get not use any models from crontroller
     for (i = 0; i < dataj.length; i++) {
       const arras= {
           characterId: createdId,
@@ -86,8 +89,40 @@ const createCharacter = async (req, res) => {
   } 
 };
 
+const deleteCharacterByName = async (req,res) => {
+  const byName = {
+    name: req.query.name
+  }
+
+  const deleteResult = v1Services.destroyer(filter= byName,model=characterModel)
+  res.status(200).send({deleteResult});
+
+}
+
+const updateCharacter = async (req,res) =>{
+  //TODO create response
+  //TODO use try catch
+  // TODO use success sequelize
+const valueBody = req.body.value
+//console.log(valueBody)
+const filterBody = req.body.filter
+console.log(filterBody)
+  const value = 
+    {
+    name: "lolipop"
+  }
+  const filter =
+  {
+    where: filterBody
+  }
+     await v1Services.updater(valueBody,filter)
+     res.status(201).send({status:"OK"} );
+}
+
   module.exports = {
     createCharacter,
-    searchBy
+    searchBy,
+    deleteCharacterByName,
+    updateCharacter
     
   }
