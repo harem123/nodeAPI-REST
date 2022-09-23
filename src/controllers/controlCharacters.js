@@ -16,7 +16,6 @@ const characterModel = db.character
 
 const searchBy= async (req,res) => {
   try{
-    
     let allData= null
     let firstKey=Object.keys(req.query)[0];
     switch (firstKey) {
@@ -33,11 +32,10 @@ const searchBy= async (req,res) => {
         allData = await v1ServiceCharacter.getByFilter(byAge)
         break
       case 'movieId':
-        const byMovie = { movieId: req.query.movieId }
-        allData = await v1ServiceCharacter.getByMovieId(byMovie)
-        break
-      default: console.log("def")
         
+        break
+      default: 
+      allData = await v1ServiceCharacter.getAll()
     }
     //TODO review if it is better send raw data 
     res.status(200).send({data:allData});
@@ -49,8 +47,8 @@ const searchBy= async (req,res) => {
     
 }
 
-
 const createCharacter = async (req, res) => {
+  try {
   await uploadFile(req,res)
   const link = baseUrl + req.file.originalname
   const arras = req.body.movieArr
@@ -70,12 +68,11 @@ const createCharacter = async (req, res) => {
   history: body.history,
   weight: body.weight // decimal
  }  
-  try {
+  
     createdId= await v1ServiceCharacter.postCharacter(newInsert)
     res.status(201).send({status:"OK", CreatedId: createdId} );
     // inserto con el id en la tabla movie-genre 
-    // TODO agregar un propio try catch para genre movie insertion  
-    // TODO make insertion from service and get not use any models from crontroller
+    
     for (i = 0; i < dataj.length; i++) {
       const arras= {
           characterId: createdId,
@@ -90,33 +87,39 @@ const createCharacter = async (req, res) => {
 };
 
 const deleteCharacterByName = async (req,res) => {
+ try {
   const byName = {
     name: req.query.name
   }
 
   const deleteResult = v1Services.destroyer(filter= byName,model=characterModel)
   res.status(200).send({deleteResult});
-
+ } 
+ catch (error) {
+  console.log(error)
+  res.status(500).send({status:"FAILED"});
+} 
 }
 
 const updateCharacter = async (req,res) =>{
-  //TODO create response
   //TODO use try catch
   // TODO use success sequelize
-const valueBody = req.body.value
-//console.log(valueBody)
-const filterBody = req.body.filter
-console.log(filterBody)
-  const value = 
-    {
-    name: "lolipop"
+  try{
+    const valueBody = req.body.value
+    //console.log(valueBody)
+    const filterBody = req.body.filter
+    console.log(filterBody)
+       const filter =
+      {
+        where: filterBody
+      }
+         await v1Services.updater(valueBody,filter)
+         res.status(201).send({status:"OK"} );
   }
-  const filter =
-  {
-    where: filterBody
-  }
-     await v1Services.updater(valueBody,filter)
-     res.status(201).send({status:"OK"} );
+  catch (error) {
+    console.log(error)
+    res.status(500).send({status:"FAILED"});
+  } 
 }
 
   module.exports = {

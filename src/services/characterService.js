@@ -6,10 +6,7 @@ const associatedMovie= db.character_movie
 // show all data 
 const getAll= async() => {
   try{
-    const data = await  characterModel.findAll({attributes:['name','img_link']})
-      //console.log(movies)
-      //const result = JSON.stringify(data)
-    
+    const data = await  characterModel.findAll({attributes:['name','img_link']})   
       return data
   }
   catch(err){
@@ -19,8 +16,7 @@ const getAll= async() => {
 
 const getByFilter= async(filter,model=characterModel) => {
   try{
-    //TODO query should return only name and image
-    //console.log(filter)
+  
     const data = await  model.findAll({
       attributes:['name','img_link'],
       where: filter
@@ -31,23 +27,22 @@ const getByFilter= async(filter,model=characterModel) => {
     console.log(err)
   }  
 }
-//TODO build character query by id movie
+
 const getByMovieId= async(filter) => {
   try{
-    //TODO pasar desde controlador todo el filtro 
-    //console.log(filter)
-
+    //TODO pass complete query from controller 
+    
     const data = await  associatedMovie.findAll({
       where: filter,
       attributes: ['characterId'],
       raw: true,
       nest: true
     });
-    //TODO retunr find all id [1,2,3] is property of find all 
+    
     //const datajson = JSON.parse(data); 
     let bulkId = []
     for (i=0; i < data.length; i++){
-      //console.log(data[i].characterId)
+      
       bulkId.push(data[i].characterId)
     }
     console.log(bulkId)
@@ -64,23 +59,7 @@ const getByMovieId= async(filter) => {
   }  
 }
 
-// TODO show one user by id but really
-const getOneMovie = async (id) => {
-    
-  const movieInfo = await movieModel.findOne({ where: { id: id} });
-    if (movieInfo === null) {
-      console.log('Not found!');
-    } else {
-      
-      console.log(movieInfo); // 'My Title'
-    }
-    return movieInfo
-}
-
-
-
-
-// create users try catch doesnt work propertly
+//TODO create users try catch doesnt work propertly
 const  postCharacter = async (userBody) => {
   try{
     const createResult = await characterModel.create(userBody)
@@ -96,7 +75,6 @@ const  postCharacter = async (userBody) => {
 
 /////// exports
   module.exports = {
-    
     postCharacter,
     getAll ,
     getByFilter,
