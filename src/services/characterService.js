@@ -46,6 +46,7 @@ const getByMovieId= async(filter) => {
       bulkId.push(data[i].characterId)
     }
     console.log(bulkId)
+    // TODO not use db from controller
     const characterData = await characterModel.findAll({
       where: {
         id: bulkId // Same as using `id: { [Op.in]: [1,2,3] }`

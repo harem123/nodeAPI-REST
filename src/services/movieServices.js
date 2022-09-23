@@ -3,12 +3,55 @@ const db = require("../../models/index.js");
 const movieModel = db.movie;
 //const genreModel = db.genre;
 // show all data 
-const getAllMovies= async() => {
+
+const getByFilter= async(filter,model=characterModel) => {
+  try{
+  
+    const data = await  model.findAll({
+      attributes:['name','img_link'],
+      where: filter
+    });
+      return data
+  }
+  catch(err){
+    console.log(err)
+  }  
+}
+
+const getByMovieId= async(filter) => {
+  try{
+    //TODO pass complete query from controller 
+      const data = await  associatedMovie.findAll({
+      where: filter,
+      attributes: ['characterId'],
+      raw: true,
+      nest: true
+    });
+    
+    //const datajson = JSON.parse(data); 
+    let bulkId = []
+    for (i=0; i < data.length; i++){
+      
+      bulkId.push(data[i].characterId)
+    }
+    console.log(bulkId)
+    const characterData = await characterModel.findAll({
+      where: {
+        id: bulkId // Same as using `id: { [Op.in]: [1,2,3] }`
+      }
+    });
+    
+    return characterData
+  }
+  catch(err){
+    console.log(err)
+  }  
+}
+
+const getAll= async() => {
   try{
     const data = await  movieModel.findAll({attributes:['title','score','img_link']})
-      //console.log(movies)
-      //const result = JSON.stringify(data)
-      //console.log(result)
+      
       return data
   }
   catch(err){
@@ -17,30 +60,6 @@ const getAllMovies= async() => {
 }
 
 
-
-
-const getById = async (id,model=movieModel) => {
-    
-  const byIdInfo = await model.findOne({ where: { id: id} });
-    if (byIdInfo === null) {
-      console.log('Not found!');
-    } else {
-      
-      console.log(byIdInfo); // 'My Title'
-    }
-    return byIdInfo
-}
-const getByName = async (id,model=movieModel) => {
-    
-  const nameInfo = await model.findOne({ where: { title: id} });
-    if (nameInfo === null) {
-      console.log('Not found!');
-    } else {
-      
-      //console.log(nameInfo); // 'My Title'
-    }
-    return nameInfo
-}
 
 
 
@@ -60,9 +79,9 @@ const  postMovie = async (userBody,model=movieModel) => {
 
 /////// exports
   module.exports = {
-    getAllMovies,
-    getById,
+    getAll,
+    
     postMovie,
-    getByName,
+    
     
   }
