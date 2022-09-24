@@ -10,12 +10,11 @@ const v1RegistControl = require('../controllers/userControl')
 const v1ControlEmail = require('../controllers/nodemailer.js')
 
  
-
+router.get("/movie/detail", v1ControlMovies.movieDetails);
  
+router.get("/movies", v1ControlMovies.searchBy);
 
 router.post("/createMovie", v1ControlMovies.createMovie);
-
-
 
 // characters endpoints
 
@@ -36,10 +35,6 @@ router.post("/upload", v1ControlImages.upload);
 router.post("/createGenre", v1genreCreator.createGenre);
 
 router.get("/files/:name", v1ControlImages.download);
-
-
-
-
 
 router.get("/email" , v1ControlEmail.sendEmail);
 

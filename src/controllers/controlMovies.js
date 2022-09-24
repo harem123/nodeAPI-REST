@@ -10,28 +10,44 @@ const db = require("../../models/index.js");
 const genreAssociateModel = db.genre_movie;
 
 // ****** script init ***
+
+const  movieDetails = async (req,res) => {
+  try{  
+    const byTitle = {
+      title: req.query.title
+    }
+   const allData = await v1ServiceMovie.getDetails(byTitle)
+    res.status(200).send({allData});
+    }
+    catch (error) {
+      console.log(error)
+      res.status(500).send({status:"FAILED"});
+    } 
+}
+
 const searchBy= async (req,res) => {
   try{
     let allData= null
     let firstKey=Object.keys(req.query)[0];
     switch (firstKey) {
-      case 'name':
-        const byName = {
-          name: req.query.name
+      case 'title':
+        const byTitle = {
+          title: req.query.title
         }
-        allData = await v1ServiceCharacter.getByFilter(byName)
+        allData = await v1ServiceMovie.getByFilter(byTitle)
         break
-      case 'age':
-        const byAge = {
-          age: req.query.age
+      case 'genreId':
+        const byGenre = {
+          genreId: req.query.genreId
         }
-        allData = await v1ServiceCharacter.getByFilter(byAge)
+        allData = await v1ServiceMovie.getByGenreId(byGenre)
         break
-      case 'movieId':
-        
+      case 'order':
+         const  order= req.query.order
+           allData = await v1ServiceMovie.getAll(order)
         break
-      default: 
-      allData = await v1ServiceCharacter.getAll()
+        default: 
+      allData = await v1ServiceMovie.getAll('ASC')
     }
     //TODO review if it is better send raw data 
     res.status(200).send({data:allData});
@@ -40,10 +56,7 @@ const searchBy= async (req,res) => {
     console.log(error)
     res.status(500).send({status:"FAILED"});
   } 
-    
 }
-
-
 
 const createMovie = async (req, res) => {
   try {
@@ -84,11 +97,8 @@ const createMovie = async (req, res) => {
   } 
 };
 
-
-
   module.exports = {
-    
+    movieDetails,
     createMovie,
-    
-   
+    searchBy
   }

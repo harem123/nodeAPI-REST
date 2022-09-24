@@ -73,6 +73,7 @@ const getDetails= async(filter,model=characterModel) => {
    const charId= data[0].id
 
    const idMovies = await  associatedMovie.findAll({
+    //TODO get only id 
         where:  {
       characterId: charId
     }   
@@ -86,7 +87,7 @@ const getDetails= async(filter,model=characterModel) => {
     console.log(bulkId)
   
     const movieData = await movieModel.findAll({
-      attributes:['title','id'],
+      attributes:['title','img_link'],
       where: {
         id: bulkId// Same as using `id: { [Op.in]: [1,2,3] }`
       }

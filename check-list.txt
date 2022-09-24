@@ -1,0 +1,28 @@
+---modelado DB ----
+modelado DB without foreign key -OJO-
+missing UNIQUE RULES for movie and character
+
+-----login and register----
+login token ok
+registration endpoint ok
+
+----- character -----
+character create ok
+character delete ok
+character update ok
+character searchBy ok
+character detail ok
+
+-----movie------
+movie create ok
+movie delete NO
+movie update NO
+movie searchBy ok
+movie detail ok
+
+----genre------
+genre create
+genre delete
+genre update
+genre search
+genre detail
