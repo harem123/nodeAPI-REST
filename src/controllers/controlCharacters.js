@@ -32,7 +32,10 @@ const searchBy= async (req,res) => {
         allData = await v1ServiceCharacter.getByFilter(byAge)
         break
       case 'movieId':
-        
+        const movieId = {
+          movieId: req.query.movieId
+        }
+        allData = await v1ServiceCharacter.getByMovieId(movieId)
         break
       default: 
       allData = await v1ServiceCharacter.getAll()
@@ -45,6 +48,23 @@ const searchBy= async (req,res) => {
     res.status(500).send({status:"FAILED"});
   } 
     
+}
+
+const  charDetails = async (req,res) => {
+  
+    try{
+      let allData= null
+      
+      const byName = {
+        name: req.query.name
+      }
+      allData = await v1ServiceCharacter.getDetails(byName)
+      res.status(200).send({allData});
+      }
+      catch (error) {
+        console.log(error)
+        res.status(500).send({status:"FAILED"});
+      } 
 }
 
 const createCharacter = async (req, res) => {
@@ -68,7 +88,7 @@ const createCharacter = async (req, res) => {
   history: body.history,
   weight: body.weight // decimal
  }  
-  
+  // TODO create service for movie association 
     createdId= await v1ServiceCharacter.postCharacter(newInsert)
     res.status(201).send({status:"OK", CreatedId: createdId} );
     // inserto con el id en la tabla movie-genre 
@@ -86,7 +106,7 @@ const createCharacter = async (req, res) => {
   } 
 };
 
-const deleteCharacterByName = async (req,res) => {
+const deleteByName = async (req,res) => {
  try {
   const byName = {
     name: req.query.name
@@ -125,7 +145,8 @@ const updateCharacter = async (req,res) =>{
   module.exports = {
     createCharacter,
     searchBy,
-    deleteCharacterByName,
-    updateCharacter
+    deleteByName,
+    updateCharacter,
+    charDetails
     
   }

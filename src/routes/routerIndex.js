@@ -9,15 +9,13 @@ const v1genreCreator = require('../controllers/genreCreator')
 const v1RegistControl = require('../controllers/userControl')
 const v1ControlEmail = require('../controllers/nodemailer.js')
 
- router.get("/movies" , v1ControlMovies.getMovies);
+ 
 
  
 
 router.post("/createMovie", v1ControlMovies.createMovie);
 
-router.get("/movies/:id", v1ControlMovies.getById);
 
-router.get("/mov", v1ControlMovies.getByname);
 
 // characters endpoints
 
@@ -27,7 +25,9 @@ router.post("/updateCharacter", v1ControlCharacters.updateCharacter);
 
 router.get("/character", v1ControlCharacters.searchBy);
 
-router.get("/character/delete", v1ControlCharacters.deleteCharacterByName);
+router.get("/character/delete", v1ControlCharacters.deleteByName);
+
+router.get("/character/detail", v1ControlCharacters.charDetails);
 
 // other endpoints
 
