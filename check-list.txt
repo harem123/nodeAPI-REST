@@ -6,6 +6,16 @@ missing UNIQUE RULES for movie and character
 login token ok
 registration endpoint ok
 
+--- documentation ---
+create postman documentation NONE
+
+----genre------
+genre create 0%
+genre delete 0%
+genre update 0%
+genre search 0%
+genre detail 0%
+
 ----- character -----
 character create ok
 character delete ok
@@ -15,14 +25,8 @@ character detail ok
 
 -----movie------
 movie create ok
-movie delete NO
-movie update NO
+movie delete ok
+movie update ok
 movie searchBy ok
 movie detail ok
 
-----genre------
-genre create
-genre delete
-genre update
-genre search
-genre detail

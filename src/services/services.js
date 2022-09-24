@@ -3,14 +3,15 @@ const usersModel = db.user;
 const genreModel = db.genre;
 const characterModel = db.character
 // show all data 
-
-const updater = async (value,filter) => {
+//TODO review correct response
+const updater = async (value,filter,model) => {
   console.log(value)
   console.log(filter)
-  const updatedRows = await characterModel.update(
+  const updatedRows = await model.update(
     value,
     filter
-  );
+  )
+  console.log(updatedRows)
 }
 
 const destroyer = async (filter,model) => {

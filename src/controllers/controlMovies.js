@@ -6,10 +6,48 @@ const url = require('url');
 const baseUrl = "http://localhost:3000/images/";
 // model import
 const v1ServiceMovie = require('../services/movieServices.js')
+const v1Services = require('../services/services.js')
 const db = require("../../models/index.js");
 const genreAssociateModel = db.genre_movie;
+const movieModel = db.movie
 
 // ****** script init ***
+
+const updateMovie = async (req,res) =>{
+  //TODO use try catch
+  // TODO use success sequelize
+  try{
+    const valueBody = req.body.value
+    //console.log(valueBody)
+    const filterBody = req.body.filter
+    console.log(filterBody)
+       const filter =
+      {
+        where: filterBody
+      }
+         await v1Services.updater(valueBody,filter,model=movieModel)
+         res.status(201).send({status:"OK"} );
+  }
+  catch (error) {
+    console.log(error)
+    res.status(500).send({status:"FAILED"});
+  } 
+}
+
+const deleteByTitle = async (req,res) => {
+  try {
+   const byTitle = {
+     title: req.query.title
+   }
+ 
+   const deleteResult = v1Services.destroyer(filter= byTitle,model=movieModel)
+   res.status(200).send({deleteResult});
+  } 
+  catch (error) {
+   console.log(error)
+   res.status(500).send({status:"FAILED"});
+ } 
+ }
 
 const  movieDetails = async (req,res) => {
   try{  
@@ -100,5 +138,7 @@ const createMovie = async (req, res) => {
   module.exports = {
     movieDetails,
     createMovie,
-    searchBy
+    searchBy,
+    deleteByTitle,
+    updateMovie
   }

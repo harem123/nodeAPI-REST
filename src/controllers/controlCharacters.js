@@ -133,7 +133,7 @@ const updateCharacter = async (req,res) =>{
       {
         where: filterBody
       }
-         await v1Services.updater(valueBody,filter)
+         await v1Services.updater(valueBody,filter,model=characterModel)
          res.status(201).send({status:"OK"} );
   }
   catch (error) {

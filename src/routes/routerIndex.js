@@ -9,10 +9,13 @@ const v1genreCreator = require('../controllers/genreCreator')
 const v1RegistControl = require('../controllers/userControl')
 const v1ControlEmail = require('../controllers/nodemailer.js')
 
- 
+router.get("/movie/delete", v1ControlMovies.deleteByTitle);
+
 router.get("/movie/detail", v1ControlMovies.movieDetails);
  
 router.get("/movies", v1ControlMovies.searchBy);
+
+router.post("/updateMovie", v1ControlMovies.updateMovie);
 
 router.post("/createMovie", v1ControlMovies.createMovie);
 
