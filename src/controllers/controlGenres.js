@@ -25,10 +25,8 @@ const createGenre = async (req, res) => {
  const newGenre= {
   name: body.name,
   img_link: body.img_link
-  
  }
-  
-  //onst createdUser = usersModel.create(newUser);
+
   try {
     createdGenre= await v1ServiceGenre.postGenre(newGenre)
     res.status(201).send({status:"OK", userId: createdGenre} );

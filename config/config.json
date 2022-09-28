@@ -3,7 +3,7 @@
   "development": {
     "username": "postgres",
     "password": "cedenar2022",
-    "database": "alk_db4",
+    "database": "alkemy4-v2",
     "host": "localhost",
     "dialect": "postgres"
   },

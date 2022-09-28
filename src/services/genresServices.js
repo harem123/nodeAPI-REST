@@ -1,7 +1,7 @@
 const db = require("../../models/index.js");
-//const movieModel = db.movie;
+
 const genreModel = db.genre;
-// show all data 
+
 const getAllGenres= () => {
   const data = genreModel.findAll({attributes:['title','score']})
   .then(genres => {
@@ -14,12 +14,10 @@ const getAllGenres= () => {
   return data
 }
 
-// TODO create users try catch doesnt work propertly
 const  postGenre = async (userBody) => {
   try{
     const createResult = await genreModel.create(userBody)
   
-    console.log(createResult.id)
     return (createResult.img_link)
   }
   catch(error){
@@ -33,6 +31,4 @@ const  postGenre = async (userBody) => {
     getAllGenres,
     postGenre,
     ///// genre services exportations
-   
-  
-  }
+ }
