@@ -9,6 +9,7 @@ const v1ServiceMovie = require('../services/movieServices.js')
 const v1Services = require('../services/services.js')
 const db = require("../../models/index.js");
 const genreAssociateModel = db.genre_movie;
+const genreModel = db.genre
 const movieModel = db.movie
 
 // ****** script init ***
@@ -42,6 +43,25 @@ const deleteByTitle = async (req,res) => {
  
    const deleteResult = v1Services.destroyer(filter= byTitle,model=movieModel)
    res.status(200).send({deleteResult});
+  } 
+  catch (error) {
+   console.log(error)
+   res.status(500).send({status:"FAILED"});
+ } 
+ }
+
+ const simpleQuery = async (req,res) => {
+  try {
+   
+    const byGenre = {
+      genred: req.query.genreId
+    }
+   const datag=   await  movieModel.findAll({
+          include:[genreModel]
+    })
+    console.log(datag)
+ 
+   res.status(200).send({datag});
   } 
   catch (error) {
    console.log(error)
@@ -115,7 +135,8 @@ const createMovie = async (req, res) => {
   title: body.title,
   img_link: link,
     created_date: body.created_date,// yyyy-mm-dd
-  score: body.score
+  score: body.score,
+  genreId:body.genreId
  }  
  
     createdMovie= await v1ServiceMovie.postMovie(newMovie)
@@ -140,5 +161,6 @@ const createMovie = async (req, res) => {
     createMovie,
     searchBy,
     deleteByTitle,
-    updateMovie
+    updateMovie,
+    simpleQuery
   }
