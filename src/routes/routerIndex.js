@@ -17,6 +17,8 @@ router.get("/movies", v1ControlMovies.searchBy);
 
 router.get("/moviesByGenre", v1ControlMovies.simpleQuery);
 
+router.get("/moviesCharacter", v1ControlMovies.simpleManyQuery);
+
 router.post("/updateMovie", v1ControlMovies.updateMovie);
 
 router.post("/createMovie", v1ControlMovies.createMovie);

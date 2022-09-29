@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   character_movie.init({
-    characterId: DataTypes.INTEGER,
-    movieId: DataTypes.INTEGER
+    characterId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+      },
+      movieId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true
+      }
   }, {
     sequelize,
     modelName: 'character_movie',

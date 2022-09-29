@@ -11,6 +11,7 @@ const db = require("../../models/index.js");
 const genreAssociateModel = db.genre_movie;
 const genreModel = db.genre
 const movieModel = db.movie
+const characterModel = db.character
 
 // ****** script init ***
 
@@ -53,10 +54,10 @@ const deleteByTitle = async (req,res) => {
  const simpleQuery = async (req,res) => {
   try {
    
-    const byGenre = {
-      genred: req.query.genreId
-    }
    const datag=   await  movieModel.findAll({
+    where:  {
+      genreId: req.query.idGenre
+    },
           include:[genreModel]
     })
     console.log(datag)
@@ -156,11 +157,29 @@ const createMovie = async (req, res) => {
   } 
 };
 
+const simpleManyQuery = async (req,res) => {
+  try {
+   
+   const datag=   await  movieModel.findAll({
+    
+          include:[characterModel]
+    })
+    console.log(datag)
+ 
+   res.status(200).send({datag});
+  } 
+  catch (error) {
+   console.log(error)
+   res.status(500).send({status:"FAILED"});
+ } 
+ }
+
   module.exports = {
     movieDetails,
     createMovie,
     searchBy,
     deleteByTitle,
     updateMovie,
-    simpleQuery
+    simpleQuery,
+    simpleManyQuery
   }

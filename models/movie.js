@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
      
         movie.belongsTo(models.genre);
+
+        movie.belongsToMany(models.character, {
+          through: "character_movies",
+       });
       
     }
   }
