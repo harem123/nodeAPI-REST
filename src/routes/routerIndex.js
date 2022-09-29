@@ -11,13 +11,9 @@ const v1ControlEmail = require('../controllers/nodemailer.js')
 
 router.get("/movie/delete", v1ControlMovies.deleteByTitle);
 
-router.get("/movie/detail", v1ControlMovies.movieDetails);
+router.get("/movie/detail", v1ControlMovies.simpleDetails);
  
 router.get("/movies", v1ControlMovies.searchBy);
-
-router.get("/moviesByGenre", v1ControlMovies.simpleQuery);
-
-router.get("/moviesCharacter", v1ControlMovies.simpleManyQuery);
 
 router.post("/updateMovie", v1ControlMovies.updateMovie);
 

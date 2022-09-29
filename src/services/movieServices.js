@@ -8,45 +8,6 @@ const associatedChar = db.character_movie
 //const genreModel = db.genre;
 // show all data 
 
-const getDetails= async(filter,model=movieModel) => {
-  try{
-    const data = await  model.findAll({
-      where: filter    
-    })
-    console.log(data)
-//TODO change var names
-   const movieId= data[0].id
-
-   const characterList = await  associatedChar.findAll({
-    attributes:['characterId'],
-        where:  {
-      movieId: movieId
-    }   
-  })
-
-  let bulkId = []
-    for (i=0; i < characterList.length; i++){
-      
-      bulkId.push(characterList[i].characterId)
-    }
-    console.log(bulkId)
-  
-    const charData = await characterModel.findAll({
-      attributes:['name','img_link'],
-      where: {
-        id: bulkId// Same as using `id: { [Op.in]: [1,2,3] }`
-      }
-    })
-    //console.log(movieData)
-    const detailData = {data,charData}
-      return detailData
-  }
-  catch(err){
-    console.log(err)
-  }  
-}
-
-
 const getByFilter= async(filter,model= movieModel) => {
   try{
     const data = await  model.findAll({
@@ -54,38 +15,6 @@ const getByFilter= async(filter,model= movieModel) => {
       where: filter
     });
       return data
-  }
-  catch(err){
-    console.log(err)
-  }  
-}
-
-const getByGenreId= async(filter) => {
-  try{
-    //TODO pass complete query from controller 
-    
-    const data = await  associatedGenre.findAll({
-      where: filter,
-      attributes: ['movieId'],
-      raw: true,
-      nest: true
-    });
-    console.log(data)
-    //const datajson = JSON.parse(data); 
-    let bulkId = []
-    for (i=0; i < data.length; i++){
-      
-      bulkId.push(data[i].movieId)
-    }
-    console.log(bulkId)
-    const movieData = await movieModel.findAll({
-      attributes:['title','img_link','created_date'],
-      where: {
-        id: bulkId // Same as using `id: { [Op.in]: [1,2,3] }`
-      }
-    });
-    
-    return movieData
   }
   catch(err){
     console.log(err)
@@ -118,14 +47,40 @@ const  postMovie = async (userBody,model=movieModel) => {
   catch(error){
     console.log(error)
   }
-  
 }
+
+const  details = async (filter,model=movieModel) => {
+  try{
+    const result = await  movieModel.findAll({
+      where:filter,
+      include:[characterModel]
+    })
+      return result
+  }
+  catch(error){
+    console.log(error)
+  }
+}
+
+const  simpleGenre = async (filter,model=movieModel) => {
+  try{
+    const result = await  model.findAll({
+      where: filter,
+      include:[genreModel]
+      })
+      return result
+  }
+  catch(error){
+    console.log(error)
+  }
+}
+
 
 /////// exports
   module.exports = {
     getAll,
-    getByGenreId,
     postMovie,
     getByFilter,
-    getDetails
+    details,
+    simpleGenre
   }

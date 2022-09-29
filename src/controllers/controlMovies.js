@@ -9,9 +9,7 @@ const v1ServiceMovie = require('../services/movieServices.js')
 const v1Services = require('../services/services.js')
 const db = require("../../models/index.js");
 const genreAssociateModel = db.genre_movie;
-const genreModel = db.genre
 const movieModel = db.movie
-const characterModel = db.character
 
 // ****** script init ***
 
@@ -51,39 +49,6 @@ const deleteByTitle = async (req,res) => {
  } 
  }
 
- const simpleQuery = async (req,res) => {
-  try {
-   
-   const datag=   await  movieModel.findAll({
-    where:  {
-      genreId: req.query.idGenre
-    },
-          include:[genreModel]
-    })
-    console.log(datag)
- 
-   res.status(200).send({datag});
-  } 
-  catch (error) {
-   console.log(error)
-   res.status(500).send({status:"FAILED"});
- } 
- }
-
-const  movieDetails = async (req,res) => {
-  try{  
-    const byTitle = {
-      title: req.query.title
-    }
-   const allData = await v1ServiceMovie.getDetails(byTitle)
-    res.status(200).send({allData});
-    }
-    catch (error) {
-      console.log(error)
-      res.status(500).send({status:"FAILED"});
-    } 
-}
-
 const searchBy= async (req,res) => {
   try{
     let allData= null
@@ -99,7 +64,7 @@ const searchBy= async (req,res) => {
         const byGenre = {
           genreId: req.query.genreId
         }
-        allData = await v1ServiceMovie.getByGenreId(byGenre)
+        allData = await v1ServiceMovie.simpleGenre(byGenre)
         break
       case 'order':
          const  order= req.query.order
@@ -135,37 +100,26 @@ const createMovie = async (req, res) => {
  const newMovie= {
   title: body.title,
   img_link: link,
-    created_date: body.created_date,// yyyy-mm-dd
+  created_date: body.created_date,// yyyy-mm-dd
   score: body.score,
   genreId:body.genreId
  }  
  
     createdMovie= await v1ServiceMovie.postMovie(newMovie)
     res.status(201).send({status:"OK", movieCreatedId: createdMovie} );
-    // inserto con el id en la tabla movie-genre 
-    // TODO agregar un propio try catch para genre movie insertion  
-    for (i = 0; i < dataj.length; i++) {
-      const arras= {
-          movieId: createdMovie,
-          genreId: dataj[i]
-         }
-         genreAssociateModel.create(arras);
-    } 
-  } catch (error) {
+     
+    } catch (error) {
     console.log(error)
     res.status(500).send({status:"FAILED"});
   } 
 };
 
-const simpleManyQuery = async (req,res) => {
+const simpleDetails = async (req,res) => {
   try {
-   
-   const datag=   await  movieModel.findAll({
-    
-          include:[characterModel]
-    })
-    console.log(datag)
- 
+    const byTitle = {
+      title: req.query.title
+    }
+   const datag=  v1ServiceMovie.details(byTitle)
    res.status(200).send({datag});
   } 
   catch (error) {
@@ -175,11 +129,9 @@ const simpleManyQuery = async (req,res) => {
  }
 
   module.exports = {
-    movieDetails,
     createMovie,
     searchBy,
     deleteByTitle,
     updateMovie,
-    simpleQuery,
-    simpleManyQuery
+    simpleDetails
   }
