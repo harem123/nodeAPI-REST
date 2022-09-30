@@ -54,7 +54,10 @@ const  details = async (filter,model=movieModel) => {
   try{
     const result = await  movieModel.findAll({
       where:filter,
-      include:[characterModel]
+      include:include:[{
+        model: characterModel,
+        attributes:['name','img_link']
+      }]
     })
       return result
   }
