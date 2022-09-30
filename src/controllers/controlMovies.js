@@ -62,7 +62,7 @@ const searchBy= async (req,res) => {
         break
       case 'genreId':
         const byGenre = {
-          genreId: req.query.genreId
+          id: req.query.genreId
         }
         allData = await v1ServiceMovie.simpleGenre(byGenre)
         break
@@ -87,9 +87,7 @@ const createMovie = async (req, res) => {
   await uploadFile(req,res)
   const link = baseUrl  + req.file.originalname
   // TODO change movie ARR to genre arr
-  const arras = req.body.movieArr
-    const dataj = JSON.parse(arras); 
-
+  
   const {body} = req
   if ( 
     !body.title 

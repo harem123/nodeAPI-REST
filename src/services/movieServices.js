@@ -2,8 +2,9 @@
 const db = require("../../models/index.js");
 const movieModel = db.movie;
 const characterModel = db.character
-const associatedGenre = db.genre_movie
+const genreModel = db.genre
 const associatedChar = db.character_movie
+
 
 //const genreModel = db.genre;
 // show all data 
@@ -66,7 +67,11 @@ const  simpleGenre = async (filter,model=movieModel) => {
   try{
     const result = await  model.findAll({
       where: filter,
-      include:[genreModel]
+      attributes:['title','img_link','created_date'],
+      include:[{
+        model: genreModel,
+        attributes:['name']
+      }]
       })
       return result
   }

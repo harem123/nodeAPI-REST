@@ -1,7 +1,5 @@
 // requerido para subir las fotos 
 const uploadFile = require("../services/uploadService.js");
-const fs = require("fs");
-const url = require('url');
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
 const baseUrl = "http://localhost:3000/images/";
 // importo el modelo
@@ -10,7 +8,6 @@ const v1Services = require('../services/services.js')
 const db = require("../../models/index.js");
 const characterAssociateModel = db.character_movie;
 const characterModel = db.character
-
 
 //TODO implement foreign keys and cascade delete and update 
 
@@ -31,9 +28,10 @@ const searchBy= async (req,res) => {
         }
         allData = await v1ServiceCharacter.getByFilter(byAge)
         break
-      case 'movieId':
+      case 'movies':
+        console.log(req.query.movies)
         const movieId = {
-          movieId: req.query.movieId
+          id: req.query.movies
         }
         allData = await v1ServiceCharacter.getByMovieId(movieId)
         break

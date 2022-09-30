@@ -28,34 +28,17 @@ const getByFilter= async(filter,model=characterModel) => {
     console.log(err)
   }  
 }
-
 const getByMovieId= async(filter) => {
   try{
     //TODO pass complete query from controller 
     
-    const data = await  associatedMovie.findAll({
+    const data = await  movieModel.findAll({
       where: filter,
-      attributes: ['characterId'],
-      raw: true,
-      nest: true
-    });
-    
-    //const datajson = JSON.parse(data); 
-    let bulkId = []
-    for (i=0; i < data.length; i++){
-      
-      bulkId.push(data[i].characterId)
-    }
-    console.log(bulkId)
-    // TODO not use db from controller
-    const characterData = await characterModel.findAll({
-      attributes:['name','img_link'],
-      where: {
-        id: bulkId// Same as using `id: { [Op.in]: [1,2,3] }`
-      }
-    });
-    
-    return characterData
+      attributes:['title','img_link'],
+      include:[characterModel]
+    })   
+    console.log(data)
+    return data
   }
   catch(err){
     console.log(err)
@@ -63,42 +46,17 @@ const getByMovieId= async(filter) => {
 }
 
 // get details
-const getDetails= async(filter,model=characterModel) => {
+const  getDetails = async (filter,model=characterModel) => {
   try{
-    const data = await  model.findAll({
-      where: filter    
+    const result = await  model.findAll({
+      where:filter,
+      include:[movieModel]
     })
-    console.log(data)
-
-   const charId= data[0].id
-
-   const idMovies = await  associatedMovie.findAll({
-    //TODO get only id 
-        where:  {
-      characterId: charId
-    }   
-  })
-
-  let bulkId = []
-    for (i=0; i < idMovies.length; i++){
-      
-      bulkId.push(idMovies[i].movieId)
-    }
-    console.log(bulkId)
-  
-    const movieData = await movieModel.findAll({
-      attributes:['title','img_link'],
-      where: {
-        id: bulkId// Same as using `id: { [Op.in]: [1,2,3] }`
-      }
-    })
-    console.log(movieData)
-    const detailData = {data,movieData}
-      return detailData
+      return result
   }
-  catch(err){
-    console.log(err)
-  }  
+  catch(error){
+    console.log(error)
+  }
 }
 
 //TODO create users try catch doesnt work propertly
