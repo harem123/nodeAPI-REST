@@ -9,7 +9,7 @@ const v1genreCreator = require('../controllers/genreCreator')
 const v1RegistControl = require('../controllers/userControl')
 const v1ControlEmail = require('../controllers/nodemailer.js')
 
-router.delete("/movie/delete", v1ControlMovies.deleteByTitle);
+router.delete("/movie/deleteByTitle", v1ControlMovies.deleteByTitle);
 
 router.get("/movie/detail", v1ControlMovies.simpleDetails);
  
@@ -27,7 +27,7 @@ router.patch("/updateCharacter", v1ControlCharacters.updateCharacter);
 
 router.get("/character", v1ControlCharacters.searchBy);
 
-router.delete("/character/delete", v1ControlCharacters.deleteByName);
+router.delete("/character/deleteByname", v1ControlCharacters.deleteByName);
 
 router.get("/character/detail", v1ControlCharacters.charDetails);
 
