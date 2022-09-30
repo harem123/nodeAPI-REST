@@ -45,7 +45,7 @@ router.post("/auth/register", v1RegistControl.registerUser);
 
 router.post("/protected", v1RegistControl.ensureToken,v1RegistControl.protectedSection);
 
-router.post("//auth/login", v1RegistControl.login);
+router.post("/auth/login", v1RegistControl.login);
 
 //router.patch("/:patchId", v1Controller.updateOneWorkout);
 
