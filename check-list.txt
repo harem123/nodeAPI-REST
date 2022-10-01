@@ -1,5 +1,5 @@
 ---modelado DB ----
-modelado DB without foreign key -OJO-
+modelado DB without foreign key FIXED
 missing UNIQUE RULES for movie and character
 
 -----login and register----
@@ -10,11 +10,7 @@ registration endpoint ok
 create postman documentation NONE
 
 ----genre------
-genre create 0%
-genre delete 0%
-genre update 0%
-genre search 0%
-genre detail 0%
+genre create ok
 
 ----- character -----
 character create ok
