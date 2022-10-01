@@ -1,3 +1,4 @@
+
 // requerido para subir las fotos 
 const uploadFile = require("../services/uploadService.js");
 // aqui ojo esta la direccion donde apunto el descargar la imagen 
@@ -64,7 +65,8 @@ const  charDetails = async (req,res) => {
         res.status(500).send({status:"FAILED"});
       } 
 }
-
+//TODO unique constraints fro characters and movies
+//TODO set seeds
 const createCharacter = async (req, res) => {
   try {
   await uploadFile(req,res)
