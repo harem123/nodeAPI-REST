@@ -35,7 +35,7 @@ const getByMovieId= async(filter) => {
     const data = await  movieModel.findAll({
       where: filter,
       attributes:['title','img_link'],
-      include:include:[{
+      include:[{
         model: characterModel,
         attributes:['name','img_link']
       }]
@@ -53,7 +53,7 @@ const  getDetails = async (filter,model=characterModel) => {
   try{
     const result = await  model.findAll({
       where:filter,
-      include:include:[{
+      include:[{
         model: movieModel,
         attributes:['title','img_link']
       }]
