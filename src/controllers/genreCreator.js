@@ -6,7 +6,6 @@ const fs = require("fs");
 const baseUrl = "http://localhost:3000/images/";
 
 const createGenre = async (req, res) => {
-
    await uploadFile(req,res)
 const link = baseUrl + req.file.originalname
   const {body} = req
@@ -30,6 +29,13 @@ const link = baseUrl + req.file.originalname
   } 
 };
 
+const addTested = (value) => {
+  var result = value + " tested";
+  return result;
+};
+
   module.exports = {
-    createGenre
+    createGenre,
+    addTested
+    
   }

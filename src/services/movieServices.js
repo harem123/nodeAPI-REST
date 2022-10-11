@@ -52,17 +52,23 @@ const  postMovie = async (userBody,model=movieModel) => {
 
 const  details = async (filter,model=movieModel) => {
   try{
+    //console.log(filter)
     const result = await  movieModel.findAll({
-      where:filter,
+      where:filter,// [{title: 'hellboy'}],
       include:[{
         model: characterModel,
         attributes:['name','img_link']
       }]
     })
+   // console.log(result)
+    //console.log(result.movie)
+
       return result
+     
   }
   catch(error){
     console.log(error)
+    
   }
 }
 

@@ -58,7 +58,7 @@ const  charDetails = async (req,res) => {
         name: req.query.name
       }
       allData = await v1ServiceCharacter.getDetails(byName)
-      res.status(200).send({allData});
+      res.status(200).send(allData);
       }
       catch (error) {
         console.log(error)
@@ -148,5 +148,4 @@ const updateCharacter = async (req,res) =>{
     deleteByName,
     updateCharacter,
     charDetails
-    
   }

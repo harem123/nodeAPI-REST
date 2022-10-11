@@ -74,7 +74,7 @@ const searchBy= async (req,res) => {
       allData = await v1ServiceMovie.getAll('ASC')
     }
     //TODO review if it is better send raw data 
-    res.status(200).send({data:allData});
+    res.status(200).send(allData);
   }
   catch (error) {
     console.log(error)
@@ -117,8 +117,10 @@ const simpleDetails = async (req,res) => {
     const byTitle = {
       title: req.query.title
     }
-   const datag=  v1ServiceMovie.details(byTitle)
-   res.status(200).send({datag});
+   const data=  await v1ServiceMovie.details(byTitle)
+   //console.log(data[0])
+   //res.status(200).send(data[0].characters[0].name);
+   res.status(200).send(data[0]);
   } 
   catch (error) {
    console.log(error)
