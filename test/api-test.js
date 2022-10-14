@@ -14,8 +14,9 @@ chai.use(chaiHttp);
 describe('/GET details', () => {
     it('it should GET details', (done) => {
       chai.request(server)
-          .get("/movie/detail?title=hellboy")
-          .end((err,res) => {
+          .get("/movie/detail")
+          .query({title: 'hellboy'}) 
+          .end((err,res,req) => {
             if(err){
               console.log(err);
                 }
@@ -23,6 +24,7 @@ describe('/GET details', () => {
                 res.body.should.have.property('title');
                 expect(res.body.title).equal('hellboy');
                 expect(res.body.characters[0].name).equal('piruletica');
+                //expect(req).to.have.param('title');
             done();
           });
     });
