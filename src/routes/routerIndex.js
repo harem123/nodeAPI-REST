@@ -3,8 +3,6 @@ const router =  express.Router()
 
 const v1ControlMovies = require('../controllers/controlMovies.js')
 const v1ControlCharacters = require('../controllers/controlCharacters.js')
-
-const v1ControlImages = require('../controllers/controlImages')
 const v1genreCreator = require('../controllers/genreCreator')
 const v1RegistControl = require('../controllers/userControl')
 const v1ControlEmail = require('../controllers/nodemailer.js')
@@ -44,10 +42,6 @@ router.post("/auth/login", v1RegistControl.login);
 router.post("/createGenre", v1genreCreator.createGenre);
 
 // other endpoints
-
-router.post("/upload", v1ControlImages.upload);
-
-router.get("/files/:name", v1ControlImages.download);
 
 router.get("/email" , v1ControlEmail.sendEmail);
 

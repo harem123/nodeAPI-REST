@@ -12,10 +12,8 @@ const genreAssociateModel = db.genre_movie;
 const movieModel = db.movie
 
 // ****** script init ***
-
 const updateMovie = async (req,res) =>{
-  //TODO use try catch
-  // TODO use success sequelize
+   // TODO use success sequelize
   try{
     const valueBody = req.body.value
     //console.log(valueBody)
@@ -89,9 +87,7 @@ const createMovie = async (req, res) => {
   // TODO change movie ARR to genre arr
   
   const {body} = req
-  if ( 
-    !body.title 
-  ){
+  if (!body.title ){
     return
   }
  // inicializo la info
@@ -118,15 +114,13 @@ const simpleDetails = async (req,res) => {
       title: req.query.title
     }
    const data=  await v1ServiceMovie.details(byTitle)
-   //console.log(data[0])
-   //res.status(200).send(data[0].characters[0].name);
+
    res.status(200).send(data[0]);
   } 
   catch (error) {
    console.log(error)
    res.status(500).send({status:"FAILED"});
- } 
- }
+ } }
 
   module.exports = {
     createMovie,

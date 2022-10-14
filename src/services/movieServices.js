@@ -60,13 +60,9 @@ const  details = async (filter,model=movieModel) => {
         attributes:['name','img_link']
       }]
     })
-   // console.log(result)
-    //console.log(result.movie)
-
+ 
       return result
-     
-  }
-  catch(error){
+      } catch(error){
     console.log(error)
     
   }
@@ -83,12 +79,9 @@ const  simpleGenre = async (filter,model=movieModel) => {
       }]
       })
       return result
-  }
-  catch(error){
+  } catch(error){
     console.log(error)
-  }
-}
-
+  }}
 
 /////// exports
   module.exports = {

@@ -7,7 +7,6 @@ const baseUrl = "http://localhost:3000/images/";
 const v1ServiceCharacter = require('../services/characterService.js')
 const v1Services = require('../services/services.js')
 const db = require("../../models/index.js");
-const characterAssociateModel = db.character_movie;
 const characterModel = db.character
 
 //TODO implement foreign keys and cascade delete and update 
@@ -71,13 +70,11 @@ const createCharacter = async (req, res) => {
   try {
   await uploadFile(req,res)
   const link = baseUrl + req.file.originalname
-  const arras = req.body.movieArr
-  const dataj = JSON.parse(arras); 
+  const arr = req.body.movieArr
+  const movieList = JSON.parse(arr); 
 
   const {body} = req
-  if ( 
-    !body.name
-  ){
+  if ( !body.name){
     return
   }
  // inicializo la info
@@ -93,13 +90,8 @@ const createCharacter = async (req, res) => {
     res.status(201).send({status:"OK", CreatedId: createdId} );
     // inserto con el id en la tabla movie-genre 
     
-    for (i = 0; i < dataj.length; i++) {
-      const arras= {
-          characterId: createdId,
-          movieId: dataj[i]
-         }
-         characterAssociateModel.create(arras);
-    } 
+  await v1ServiceCharacter.associateMovies(createdId,movieList)
+    
   } catch (error) {
     console.log(error)
     res.status(500).send({status:"FAILED"});

@@ -1,7 +1,7 @@
 //TODO implement search by title filtering by gender to get ASC or DESC order movies 
 const db = require("../../models/index.js");
 const characterModel = db.character;
-const associatedMovie= db.character_movie
+const characterMovieModel= db.character_movie
 const movieModel = db.movie
 
 // show all data 
@@ -75,9 +75,16 @@ const  postCharacter = async (userBody) => {
   }
   catch(error){
     console.log(error)
-  }
-  
-}
+  }}
+
+const associateMovies = async (createdId,dataJson) => {
+for (i = 0; i < dataJson.length; i++) {
+      const arrays= {
+          characterId: createdId,
+          movieId: dataJson[i]
+         }
+      await characterMovieModel.create(arrays);
+    } }
 
 /////// exports
   module.exports = {
@@ -85,5 +92,6 @@ const  postCharacter = async (userBody) => {
     getAll ,
     getByFilter,
     getByMovieId,
-    getDetails
+    getDetails,
+    associateMovies
   }
